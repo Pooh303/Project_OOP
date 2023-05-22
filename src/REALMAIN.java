@@ -111,13 +111,13 @@ public class REALMAIN extends javax.swing.JFrame {
         jLabel2.setBounds(0, 10, 210, 40);
 
         viewsetting.setBackground(new java.awt.Color(255, 229, 202));
-        viewsetting.setIcon(new javax.swing.ImageIcon("C:\\Users\\dream\\Documents\\NetBeansProjects\\porject_OOP\\pic\\settingview.png")); // NOI18N
+        viewsetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settingview.png"))); // NOI18N
         jPanel2.add(viewsetting);
         viewsetting.setBounds(0, 0, 230, 130);
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 230, 130));
 
-        background.setIcon(new javax.swing.ImageIcon("C:\\Users\\dream\\Documents\\NetBeansProjects\\porject_OOP\\pic\\REALMAIN.png")); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/REALMAIN.png"))); // NOI18N
         background.setMaximumSize(new java.awt.Dimension(1400, 800));
         background.setMinimumSize(new java.awt.Dimension(1400, 800));
         background.setPreferredSize(new java.awt.Dimension(1400, 800));

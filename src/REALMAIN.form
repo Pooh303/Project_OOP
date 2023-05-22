@@ -137,7 +137,7 @@
               <Color blue="ca" green="e5" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\dream\Documents\NetBeansProjects\porject_OOP\pic\settingview.png"/>
+              <Image iconType="3" name="/settingview.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -151,7 +151,7 @@
     <Component class="javax.swing.JLabel" name="background">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\dream\Documents\NetBeansProjects\porject_OOP\pic\REALMAIN.png"/>
+          <Image iconType="3" name="/REALMAIN.png"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1400, 800]"/>
