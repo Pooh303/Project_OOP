@@ -303,6 +303,10 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
             ex.printStackTrace();
         }
     }
+    
+    public JFrame getFr(){
+        return view.getFr();
+    }    
 
     public static void main(String args[]) {
         WareHouseHandler ware = new WareHouseHandler();
