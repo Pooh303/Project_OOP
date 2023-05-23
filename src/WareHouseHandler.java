@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 
-public class WareHouseHandler implements ActionListener, WindowListener, MouseListener {
+public class WareHouseHandler extends absWareHouseHandler implements ActionListener, WindowListener, MouseListener {
 
     private WareHouseGUI view;
     private Product obj_p1;
@@ -83,12 +83,7 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
                 } catch (NumberFormatException ev) {
                     JOptionPane.showMessageDialog(view.getFr(), "Price and Amount can input only number!");
                 }
-                try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
-                    ops.writeObject(view.getTablemodel().products);
-                } catch (IOException ex) {
-                    System.out.println("Error");
-                    ex.printStackTrace();
-                }
+                saveDataToFile();
                 view.gettxtName().setText("");
                 view.gettxtAmount().setText("");
                 view.gettxtPrice().setText("");
@@ -119,7 +114,7 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
         if (ae.getSource().equals(view.getBn3())) {
             if (view.gettxtAmount().getText().equals("") || view.gettxtPrice().getText().equals("") || view.gettxtName().getText().equals("") || view.gettxtCode().getText().equals("")) {
                 JOptionPane.showMessageDialog(view.getFr(), "Please Enter All Data!");
-            } else if (view.getTablemodel().checkCode(view.gettxtCode().getText(), view.getTablemodel().products)) {
+            } else if (view.getTablemodel().checkCode(view.gettxtCode().getText(), view.getTable().getSelectedRow(),view.getTablemodel().products)) {
                 JOptionPane.showMessageDialog(view.getFr(), "This Code already exists in the system.");
             } else if (view.getTable().getSelectedRowCount() == 1) {
                 try {
@@ -128,10 +123,12 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
                     String Sname = view.gettxtName().getText();
                     String Sprice = view.gettxtPrice().getText();
                     String Samount = view.gettxtAmount().getText();
+                    String Scost = view.getTxtCost().getText();
                     Product Pproduct = view.getTablemodel().products.get(Ino);
                     Pproduct.setCode(Scode);
+                    Pproduct.setCost(Double.parseDouble(Scost));
                     Pproduct.setName(Sname);
-                    Pproduct.setPrice(Integer.parseInt(Sprice));
+                    Pproduct.setPrice(Double.parseDouble(Sprice));
                     Pproduct.setAmount(Integer.parseInt(Samount));
                     JOptionPane.showMessageDialog(view.getFr(), "Success !");
                     view.getTablemodel().fireTableDataChanged();
@@ -220,12 +217,7 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
 
     @Override
     public void windowClosing(WindowEvent e) {
-        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
-            ops.writeObject(view.getTablemodel().products);
-        } catch (IOException ex) {
-            System.out.println("Error");
-            ex.printStackTrace();
-        }
+        saveDataToFile();
     }
 
     @Override
@@ -295,7 +287,9 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
 
     }
 
-    private void saveDataToFile() {
+
+    @Override
+    public void saveDataToFile() {
         try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
             ops.writeObject(view.getTablemodel().products);
         } catch (IOException ex) {
@@ -303,10 +297,6 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
             ex.printStackTrace();
         }
     }
-    
-    public JFrame getFr(){
-        return view.getFr();
-    }    
 
     public static void main(String args[]) {
         WareHouseHandler ware = new WareHouseHandler();
