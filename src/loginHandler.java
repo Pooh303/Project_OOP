@@ -1,4 +1,5 @@
 
+import com.github.sarxos.webcam.WebcamEventType;
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -107,9 +108,10 @@ public class loginHandler extends loginGUI implements ActionListener {
                     }
                     if (match) {
                         JOptionPane.showMessageDialog(null, "Login success!", "", 1);
-
-                        REALMAIN main = new REALMAIN();
-                        main.setVisible(true);
+                        MDI mi = new MDI();
+                        mi.getFr().dispose();
+                        REALMAIN rm = new REALMAIN();
+                        rm.setVisible(true);
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong username or password.", "Error", 0);
@@ -121,15 +123,14 @@ public class loginHandler extends loginGUI implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setBounds(800, 280, 300, 500);
-            frame.setResizable(false);
-            frame.add(new loginHandler());
-            frame.setVisible(true);
-        });
-    }
-
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame();
+//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            frame.setBounds(800, 280, 300, 500);
+//            frame.setResizable(false);
+//            frame.add(new loginHandler());
+//            frame.setVisible(true);
+//        });
+//    }
 }

@@ -51,17 +51,15 @@ public class MDI implements ActionListener, KeyListener {
         BasicInternalFrameTitlePane titlePane = (BasicInternalFrameTitlePane) ((BasicInternalFrameUI) frame1.getUI()).getNorthPane();
         frame1.remove(titlePane);
 
-        frame2.add(new JLabel("Frame 1 Contens. ."));
-        frame2.setBounds(0, 0, 0, 0);
-        frame2.validate();
-        frame2.setVisible(true);
-
-        int x2 = frame1.getX() + frame1.getWidth() + 10;
-        int y2 = frame1.getY();
-        frame2.setLocation(x2, y2);
-
+//        frame2.add(new JLabel("Frame 1 Contens. ."));
+//        frame2.setBounds(0, 0, 0, 0);
+//        frame2.validate();
+//        frame2.setVisible(true);
+//        int x2 = frame1.getX() + frame1.getWidth() + 10;
+//        int y2 = frame1.getY();
+//        frame2.setLocation(x2, y2);
         dp.add(frame1);
-        dp.add(frame2);
+//        dp.add(frame2);
 
         mb.add(m1);
         mb.add(m2);
@@ -80,7 +78,7 @@ public class MDI implements ActionListener, KeyListener {
         // Validate the frame to ensure proper layout
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setVisible(true);
+        frame.setVisible(false);
 
         // Add a key listener to the frame to listen for "Escape" key press
         mi1.addActionListener(this);
@@ -90,7 +88,6 @@ public class MDI implements ActionListener, KeyListener {
         mb.addKeyListener(this); // Set the frame to be focused so that it can receive key events
         mb.setFocusable(true);
         mb.requestFocus();
-
     }
 
     public void actionPerformed(ActionEvent ev) {
@@ -99,7 +96,7 @@ public class MDI implements ActionListener, KeyListener {
             if (frame1.isClosed()) {
                 OpenFrame1();
             } else {
-                JOptionPane.showMessageDialog(frame, "already opened!");
+                JOptionPane.showMessageDialog(frame, "Already opened!");
             }
 
         } else if (ev.getSource().equals(mi2)) {
@@ -166,13 +163,12 @@ public class MDI implements ActionListener, KeyListener {
         this.frame.dispose();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MDI();
-            }
-        });
-    }
-
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                new MDI();
+//            }
+//        });
+//    }
 }

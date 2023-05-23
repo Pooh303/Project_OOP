@@ -85,8 +85,8 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
             ops.writeObject(this.products);
         } catch (IOException ex) {
-            System.out.println("Error");
-            ex.printStackTrace();
+//            System.out.println("Error");
+//            ex.printStackTrace();
         }
     }
 
@@ -113,7 +113,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             if (view1.getTable().getRowCount() == 0) {
                 JOptionPane.showMessageDialog(view1.getFr(), "Table is Empty.");
             } else {
-                JOptionPane.showMessageDialog(view1.getFr(), "Please select Single Row For Delete.");
+                JOptionPane.showMessageDialog(view1.getFr(), "Please select a single row for deletion.");
             }
         }
     }
@@ -178,7 +178,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             view1.getTxtChange().setText(ans + "");
             return true;
         } else {
-            JOptionPane.showMessageDialog(view1.getFr(), "Your Change must not be minus", "Error", MIN_PRIORITY);
+            JOptionPane.showMessageDialog(view1.getFr(), "Your change must not be negative.", "Error", MIN_PRIORITY);
             return false;
         }
     }
@@ -228,11 +228,11 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                     try (FileOutputStream stream = new FileOutputStream(flogs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
                         ops.writeObject(Soldproducts);
                     } catch (IOException ex) {
-                        System.out.println("Error");
-                        ex.printStackTrace();
+//                        System.out.println("Error");
+//                        ex.printStackTrace();
                     }
                     setTxtBill();
-                    JOptionPane.showMessageDialog(view1.getFr(), "Success");
+                    JOptionPane.showMessageDialog(view1.getFr(), "Success!");
                     view1.getTablemodel().soldProducts.clear();
                     clearTxtfield(view1);
                     view1.getTablemodel().fireTableDataChanged();
@@ -242,7 +242,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 } else {
                 }
             } else if (view1.getTablemodel().soldProducts.size() <= 0) {
-                JOptionPane.showMessageDialog(view1.getFr(), "no product in table.");
+                JOptionPane.showMessageDialog(view1.getFr(), "There are no products in the table.");
             } else if (view1.getTxtIncome().getText().equals("")) {
                 JOptionPane.showMessageDialog(view1.getFr(), "Please enter the amount received.");
             }
@@ -260,7 +260,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         if (e.getSource().equals(view1.getBnRecord())) {
             autoFresh();
             if (view1.getTxtAmount().getText().equals("") & view1.getTxtCode().getText().equals("") || view1.getTxtCode().getText().equals("")) {
-                JOptionPane.showMessageDialog(view1.getFr(), "Please Enter All Data!");
+                JOptionPane.showMessageDialog(view1.getFr(), "Please enter all data!");
             } else if (checkNo(view1.getTxtCode().getText(), this.products) == -1) {
                 JOptionPane.showMessageDialog(view1.getFr(), "This product does not exist in the system.");
                 ResetTxtField();
@@ -328,7 +328,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                     } else if (amount <= 0) {
                         JOptionPane.showMessageDialog(view1.getFr(), "amount can not be " + view1.getTxtAmount().getText() + " !");
                     } else if (lamount < 0) {
-                        JOptionPane.showMessageDialog(view1.getFr(), products.get(no - 1).getName() + " Only " + (products.get(no - 1).getAmount() + "") + " left in stock. ");
+                        JOptionPane.showMessageDialog(view1.getFr(), products.get(no - 1).getName() + " has " + (products.get(no - 1).getAmount() + "") + " left in stock. ");
                     }
                 } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(view1.getFr(), "amount can not be " + view1.getTxtAmount().getText() + " !");
@@ -339,7 +339,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         }
         if (e.getSource().equals(view1.getBnPrint())) {
             if (view1.getTxtAmount().getText().equals("") || view1.getTxtPrice().getText().equals("") || view1.getTxtName().getText().equals("") || view1.getTxtCode().getText().equals("")) {
-                JOptionPane.showMessageDialog(view1.getFr(), "No any Data!");
+                JOptionPane.showMessageDialog(view1.getFr(), "No Data!");
             } else {
                 try {
                     setTxtBill();

@@ -213,6 +213,10 @@ public class REALMAIN extends javax.swing.JFrame {
         Handler.isOpenReportsHandler = true;
     }//GEN-LAST:event_reportMouseClicked
 
+    public JFrame getFr() {
+        return this;
+    }
+
     /**
      * @param args the command line arguments
      */

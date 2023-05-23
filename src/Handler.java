@@ -9,5 +9,9 @@ public class Handler {
     public static boolean isOpenReportsHandler = false;
     public static registerHandler registerHandler = null;
     public static boolean isOpenregisterHandler = false;
+    public static MDI mdi = null;
+    public static boolean isOpenMDI = false;
+    public static REALMAIN realmain = null;
+    public static boolean isOpenRealMain = false;
 
 }
