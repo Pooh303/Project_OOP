@@ -28,6 +28,7 @@ public class REALMAIN extends javax.swing.JFrame {
         set2 = new javax.swing.JLabel();
         set1 = new javax.swing.JLabel();
         sell1 = new javax.swing.JLabel();
+        sell2 = new javax.swing.JLabel();
         inv = new javax.swing.JLabel();
         report = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -68,6 +69,13 @@ public class REALMAIN extends javax.swing.JFrame {
             }
         });
         getContentPane().add(sell1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 190, 110));
+
+        sell2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sell2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(sell2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 190, 110));
 
         inv.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,58 +166,46 @@ public class REALMAIN extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        if (Handler.registerHandler == null) {
-            Handler.registerHandler = new registerHandler();
-        }
-        JFrame frame = Handler.registerHandler.getFr();
-        if (Handler.isOpenregisterHandler) {
-            frame.setVisible(true);
-            return;
-        }
-        frame.setVisible(true);
-        Handler.isOpenregisterHandler = true;
+        new registerHandler();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void sell1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sell1MouseClicked
-        if (Handler.sellerHandler == null) {
-            Handler.sellerHandler = new SellerHandler();
+        sell1.setEnabled(false);
+        sell1.setVisible(false);
+        sell2.setEnabled(true);
+        sell2.setVisible(true);
+        SellerHandler sell = new SellerHandler();
+        if (sell.getFr().isEnabled()) {
+
+        } else {
+            new SellerHandler();
         }
-        JFrame frame = Handler.sellerHandler.getFr();
-        if (Handler.isOpenSellerhandler) {
-            frame.setVisible(true);
-            return;
-        }
-        frame.setVisible(true);
-        Handler.isOpenSellerhandler = true;
 
     }//GEN-LAST:event_sell1MouseClicked
 
     private void invMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_invMouseClicked
 
-        if (Handler.wareHouseHandler == null) {
-            Handler.wareHouseHandler = new WareHouseHandler();
-        }
-        JFrame frame = Handler.wareHouseHandler.getFr();
-        if (Handler.isOpenWareHouseHandler) {
-            frame.setVisible(true);
-            return;
-        }
-        frame.setVisible(true);
-        Handler.isOpenSellerhandler = true;
+        new WareHouseHandler();
     }//GEN-LAST:event_invMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        if (Handler.reportsHandler == null) {
-            Handler.reportsHandler = new ReportsHandler();
-        }
-        JFrame frame = Handler.reportsHandler.getFr();
-        if (Handler.isOpenReportsHandler) {
-            frame.setVisible(true);
-            return;
-        }
-        frame.setVisible(true);
-        Handler.isOpenReportsHandler = true;
+        new ReportsGUI();
     }//GEN-LAST:event_reportMouseClicked
+
+    private void sell2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sell2MouseClicked
+        sell2.setEnabled(false);
+        sell2.setVisible(false);
+        sell1.setEnabled(true);
+        sell1.setVisible(true);
+        SellerHandler sell = new SellerHandler();
+        if (sell.getFr().isEnabled()) {
+            sell.getFr().isVisible();
+
+        } else {
+
+        }
+
+    }//GEN-LAST:event_sell2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -225,24 +221,16 @@ public class REALMAIN extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(REALMAIN.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(REALMAIN.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(REALMAIN.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(REALMAIN.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(REALMAIN.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(REALMAIN.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(REALMAIN.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(REALMAIN.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -263,6 +251,7 @@ public class REALMAIN extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel report;
     private javax.swing.JLabel sell1;
+    private javax.swing.JLabel sell2;
     private javax.swing.JLabel set1;
     private javax.swing.JLabel set2;
     private javax.swing.JLabel viewsetting;

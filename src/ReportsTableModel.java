@@ -1,21 +1,21 @@
 
 import java.io.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-public class ProductTableModel extends AbstractTableModel implements Serializable {
+public class ReportsTableModel extends AbstractTableModel implements Serializable {
 
-    ArrayList<Product> products;
-    String[] header = {"No", "Code", "Name", "Price", "Cost", "Amount"};
+    ArrayList<SoldProduct> soldProducts;
+    String[] header = {"Sold Date" ,"Code", "Name", "Cost","Price", "Amount", "Total Cost", "Total Price"};
 
-    public ProductTableModel() {
-        products = new ArrayList<Product>();
+    public ReportsTableModel() {
+        soldProducts = new ArrayList<SoldProduct>();
         initDatas();
     }
 
     //กำหนดค่าเริ่มต้นให้กับข้อมูล
     private void initDatas() {
+
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
     @Override
     public int getRowCount() {
         //return จำนวนแถวข้อมูลทั้งหมด
-        return products.size();
+        return soldProducts.size();
     }
 
     @Override
@@ -38,24 +38,28 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (products.isEmpty()) {
+        if (soldProducts.isEmpty()) {
             return null;
         } else {
-            Product s = products.get(rowIndex);
+            SoldProduct s = soldProducts.get(rowIndex);
             //if you have more field should specify more case here
             switch (columnIndex) {
                 case 0:
-                    return s.getNo();
-                case 1: // id first
+                    return s.getDate();
+                case 1:
                     return s.getCode();
-                case 2:
+                case 2: // id first
                     return s.getName();
                 case 3:
-                    return s.getPrice();
-                case 4:
                     return s.getCost();
+                case 4:
+                    return s.getPrice();
                 case 5:
                     return s.getAmount();
+                case 6:
+                    return s.getTcost();
+                case 7:
+                    return s.getTprice();
 
                 default:
                     return null;
@@ -63,26 +67,7 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
         }
     }
 
-    public boolean checkCode(String code, int index , ArrayList<Product> list) {
-        int i = 0;
-        try{
-            String c_code = list.get(index).getCode();
-        if (c_code.equals(code)){
-            return false;
-        }
-        while (i < list.size()) {
-            if (code.equals((list.get(i).getCode()))) {
-                return true;
-            }
-            i += 1;
-        }
-        }catch (Exception ex){
-            System.out.println("pls select row in table.");
-        }
-        return false;
-    }
-         
-    public boolean checkCode(String code, ArrayList<Product> list){
+    public boolean checkCode(String code, ArrayList<SoldProduct> list) {
         int i = 0;
         while (i < list.size()) {
             if (code.equals((list.get(i).getCode()))) {
@@ -94,9 +79,8 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
     }
 
     public void printArray() {
-        for (Product info : products) {
+        for (Product info : soldProducts) {
             System.out.println(info.toString());
         }
     }
-
-    }
+}

@@ -10,12 +10,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
-public class loginHandler extends JPanel implements ActionListener {
+public class loginHandler extends loginGUI implements ActionListener {
 
-    private loginGUI viewlogin;
+    private MDI mdi;
     private File logs;
     private String username = "admin";
     private String password = "1234";
@@ -24,16 +28,17 @@ public class loginHandler extends JPanel implements ActionListener {
     ResultSet us, ps = null;
 
     public loginHandler() {
-        viewlogin = new loginGUI();
+//        viewlogin = new loginGUI();
         CheckServer();
         init();
 
     }
 
     public void init() {
-        viewlogin.getLoginBtn().addActionListener(this);
-        viewlogin.getTxt1().addActionListener(this);
-        viewlogin.getTxt2().addActionListener(this);
+        getLoginBtn().addActionListener(this);
+
+        KeyStroke enterKey = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        getLoginBtn().registerKeyboardAction(this, "login", enterKey, JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
 
     public void CheckServer() {
@@ -69,22 +74,24 @@ public class loginHandler extends JPanel implements ActionListener {
     }
 
     public String getusername() {
-        String temp = viewlogin.getTxt1().getText();
+        String temp = getTxt1().getText();
         return temp;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String userinput = viewlogin.getTxt1().getText();
-        String passwordinput = viewlogin.getTxt2().getText();
+        String userinput = getTxt1().getText();
+        String passwordinput = getTxt2().getText();
         String sum = userinput + "\t" + passwordinput;
         boolean match = false;
-        if (e.getSource().equals(viewlogin.getLoginBtn())) {
+        if (e.getSource().equals(getLoginBtn())) {
             CheckServer();
-            if (viewlogin.getTxt1().getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please insert your name.", "Error", 0);
-            } else if (viewlogin.getTxt2().getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please insert your Password.", "Error", 0);
+            if (getTxt1().getText().isEmpty() & getTxt2().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter your username and password.", "Error", 0);
+            } else if (getTxt1().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter your username.", "Error", 0);
+            } else if (getTxt2().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter your password.", "Error", 0);
             } else if (username == null & password == null) {
                 JOptionPane.showMessageDialog(null, "Server is offline", "Error", 0);
             } else {
@@ -99,10 +106,13 @@ public class loginHandler extends JPanel implements ActionListener {
                         }
                     }
                     if (match) {
-                        viewlogin.getFr().dispose();
-                        new WareHouseHandler();
+                        JOptionPane.showMessageDialog(null, "Login success!", "", 1);
+
+                        REALMAIN main = new REALMAIN();
+                        main.setVisible(true);
+
                     } else {
-                        JOptionPane.showMessageDialog(null, "Wrong Username or Password.", "Error", 0);
+                        JOptionPane.showMessageDialog(null, "Wrong username or password.", "Error", 0);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -112,7 +122,14 @@ public class loginHandler extends JPanel implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new loginHandler();
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setBounds(800, 280, 300, 500);
+            frame.setResizable(false);
+            frame.add(new loginHandler());
+            frame.setVisible(true);
+        });
     }
 
 }

@@ -18,13 +18,10 @@ import javax.swing.table.DefaultTableModel;
 public class SellerHandler extends Thread implements ActionListener, WindowListener, KeyListener, MouseListener {
 
     ArrayList<Product> products;
-    private Product pro;
-    ArrayList<Product> wareProduct;
+    ArrayList<SoldProduct> Soldproducts;
     private SellerGUI view1;
-    private WareHouseGUI view2;
     private SoldProduct obj_sp1;
-    private Product obj_sp2;
-    private File logs;
+    private File logs, flogs;
     private Camera cam;
     private Thread t1;
     private boolean pauseSell = true;
@@ -36,12 +33,18 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     public SellerHandler() {
         cam = new Camera();
         view1 = new SellerGUI();
+        cam = new Camera();
         t1 = new Thread(cam);
         t1.start();
         products = new ArrayList<Product>();
-        obj_sp2 = new Product();
+        Soldproducts = new ArrayList<SoldProduct>();
         logs = new File("Products.dat");
-
+        try {
+            logs.createNewFile();
+        } catch (IOException ev) {
+            ev.printStackTrace();
+        }
+        flogs = new File("SoldProducts.dat");
         try {
             logs.createNewFile();
         } catch (IOException ev) {
@@ -63,17 +66,16 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         KeyStroke keyCal = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         view1.getTxtTotalPrice().registerKeyboardAction(this, "Calculator", keyCal, JComponent.WHEN_FOCUSED);
         view1.getTxtIncome().registerKeyboardAction(this, "Calculator", keyCal, JComponent.WHEN_FOCUSED);
-
     }
 
     public void init() {
         view1.getFr().addWindowListener(this);
         view1.getBnRecord().addActionListener(this);
-        view1.getBnSell().addActionListener(this);
         view1.getBnPrint().addActionListener(this);
         view1.getBnCancel().addActionListener(this);
         view1.getBnScan().addActionListener(this);
         view1.getCheckText().addActionListener(this);
+        view1.getBnSell().addActionListener(this);
     }
 
     //DeleteDataEventHandler
@@ -81,6 +83,9 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         if (view1.getTable().getSelectedRowCount() == 1) {
 
             int num1 = view1.getTable().getSelectedRow();
+            int num2 = view1.getTablemodel().soldProducts.get(num1).getNo() - 1;
+            int lamount = view1.getTablemodel().soldProducts.get(num1).getAmount();
+            products.get(num2).setAmount(products.get(num2).getAmount() + lamount);
             System.out.println(num1);
             view1.getTablemodel().fireTableDataChanged();
             double oldtotal = view1.getTablemodel().soldProducts.get(num1).getTotal();
@@ -88,7 +93,9 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             double newtotal = total - oldtotal;
             view1.getTxtTotalPrice().setText(newtotal + "");
             view1.getTablemodel().soldProducts.remove(num1);
+            view1.getTablemodel().fireTableDataChanged();
             setTxtBill();
+            saveWareHouse();
             JOptionPane.showMessageDialog(view1.getFr(), "Deleted.");
         } else {
             if (view1.getTable().getRowCount() == 0) {
@@ -153,12 +160,14 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         return null;
     }
 
-    public void calChange(double total, double receive) {
+    public boolean calChange(double total, double receive) {
         double ans = total - receive;
         if (ans >= 0) {
             view1.getTxtChange().setText(ans + "");
+            return true;
         } else {
             JOptionPane.showMessageDialog(view1.getFr(), "Your Change must not be minus", "Error", MIN_PRIORITY);
+            return false;
         }
     }
 
@@ -185,6 +194,47 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     @Override
     //Press F1 Shortcut
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(view1.getBnSell())) {
+            if ((view1.getTablemodel().soldProducts.size() > 0) && !(view1.getTxtIncome().getText().equals(""))) {
+                double f_total = Double.parseDouble(view1.getTxtTotalPrice().getText());
+                double f_income = Double.parseDouble(view1.getTxtIncome().getText());
+                if (calChange(f_income, f_total)) {
+                    for (SoldProduct info : view1.getTablemodel().soldProducts) {
+                        String billKey = "1";
+                        String date = this.date;
+                        int amount = info.getAmount();
+                        double cost = info.getCost();
+                        double price = info.getPrice();
+                        double tprice = info.getTotal();
+                        double tcost = amount * cost;
+                        int no = info.getNo();
+                        String name = info.getName();
+                        String code = info.getCode();
+                        obj_sp1 = new SoldProduct(billKey, date, tcost, tprice, no, code, name, price, cost, amount);
+                        Soldproducts.add(obj_sp1);
+                    }
+                    try (FileOutputStream stream = new FileOutputStream(flogs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
+                        ops.writeObject(Soldproducts);
+                    } catch (IOException ex) {
+                        System.out.println("Error");
+                        ex.printStackTrace();
+                    }
+                    setTxtBill();
+                    JOptionPane.showMessageDialog(view1.getFr(), "Success");
+                    view1.getTablemodel().soldProducts.clear();
+                    clearTxtfield(view1);
+                    view1.getTablemodel().fireTableDataChanged();
+                    view1.getTxtTotalPrice().setText("0");
+                    setTxtBill();
+                    saveWareHouse();
+                } else {
+                }
+            } else if (view1.getTablemodel().soldProducts.size() <= 0) {
+                JOptionPane.showMessageDialog(view1.getFr(), "no product in table.");
+            } else if (view1.getTxtIncome().getText().equals("")) {
+                JOptionPane.showMessageDialog(view1.getFr(), "Please enter the amount received.");
+            }
+        }
         if (e.getActionCommand().equals("Calculator")) {
             try {
                 double recieve = Double.parseDouble(view1.getTxtTotalPrice().getText());
@@ -202,21 +252,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             } else if (checkNo(view1.getTxtCode().getText(), this.products) == -1) {
                 JOptionPane.showMessageDialog(view1.getFr(), "This product does not exist in the system.");
                 ResetTxtField();
-            } else if (searchProduct(view1.getTxtCode().getText(), products).getAmount() < 0) {
-                JOptionPane.showMessageDialog(null, "Your product ran out of stock!");
             } else {
-                //not yet
-                Product pro = new Product();
-                pro = searchProduct(view1.getTxtCode().getText(), products);
-                int newamount = Integer.parseInt(view1.getTxtAmount().getText());
-                int oldamount = pro.getAmount();
-                int ans = oldamount - newamount;
-                if (ans < 0) {
-                    JOptionPane.showMessageDialog(view1.getFr(), "Your product ran out of stock!", "Error", newamount);
-                } else {
-                    pro.setAmount(pro.getAmount() - newamount);
-
-                }
                 try {
                     if (view1.getTxtAmount().getText().equals("") & !view1.getTxtCode().getText().equals("")) {
                         Product obj = new Product();
@@ -237,7 +273,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                                 view1.getTablemodel().printArray();
                             }
                         }
-                    } else if (!view1.getTxtAmount().getText().equals("") & !view1.getTxtCode().getText().equals("") & !view1.getTxtPrice().getText().equals("") & !view1.getTxtPrice().getText().equals("")) {
+                    } else if (!view1.getTxtAmount().getText().equals("") & !view1.getTxtCode().getText().equals("") & !view1.getTxtName().getText().equals("") & !view1.getTxtPrice().getText().equals("")) {
                         Product obj = new Product();
                         obj = searchProduct(view1.getTxtCode().getText(), products);
                         view1.getTxtName().setText(obj.getName());
@@ -250,17 +286,20 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                     double cost = checkCost(view1.getTxtCode().getText(), this.products);
                     String code = checkCode(view1.getTxtCode().getText(), this.products);
                     double total = amount * price;
-                    if (amount > 0) {
+                    int lamount = products.get(no - 1).getAmount() - amount;
+                    if ((amount > 0) && (lamount >= 0)) {
                         if (view1.getTablemodel().soldProducts.size() >= 1) {
                             if (checkItem(no, view1.getTablemodel().soldProducts) != -1) {
                                 int index = checkItem(no, view1.getTablemodel().soldProducts);
                                 view1.getTablemodel().soldProducts.get(index).setAmount(view1.getTablemodel().soldProducts.get(index).getAmount() + amount);
                                 view1.getTablemodel().soldProducts.get(index).setTotal(view1.getTablemodel().soldProducts.get(index).getTotal() + total);
                                 view1.getTxtTotalPrice().setText(totalPrice(view1.getTablemodel().soldProducts) + "");
+                                this.products.get(no - 1).setAmount(lamount);
                                 view1.getTablemodel().fireTableDataChanged();
                                 view1.getTablemodel().printArray();
                             } else {
                                 obj_sp1 = new SoldProduct(total, no, code, name, price, cost, amount);
+                                this.products.get(no - 1).setAmount(lamount);
                                 view1.getTablemodel().soldProducts.add(obj_sp1);
                                 view1.getTxtTotalPrice().setText(totalPrice(view1.getTablemodel().soldProducts) + "");
                                 view1.getTablemodel().fireTableDataChanged();
@@ -268,29 +307,24 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                             }
                         } else {
                             obj_sp1 = new SoldProduct(total, no, code, name, price, cost, amount);
+                            this.products.get(no - 1).setAmount(lamount);
                             view1.getTablemodel().soldProducts.add(obj_sp1);
                             view1.getTxtTotalPrice().setText(totalPrice(view1.getTablemodel().soldProducts) + "");
                             view1.getTablemodel().fireTableDataChanged();
                             view1.getTablemodel().printArray();
                         }
-                    } else {
+                    } else if (amount <= 0) {
                         JOptionPane.showMessageDialog(view1.getFr(), "amount can not be " + view1.getTxtAmount().getText() + " !");
+                    } else if (lamount < 0) {
+                        JOptionPane.showMessageDialog(view1.getFr(), products.get(no - 1).getName() + " Only " + (products.get(no - 1).getAmount() + "") + " left in stock. ");
                     }
                 } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(view1.getFr(), "amount can not be " + view1.getTxtAmount().getText() + " !");
                 }
                 setTxtBill();
+                saveWareHouse();
             }
         }
-
-        if (e.getSource().equals(view1.getBnSell())) {
-            try (FileOutputStream save = new FileOutputStream(logs); ObjectOutputStream ips = new ObjectOutputStream(save);) {
-                ips.writeObject(products);
-            } catch (Exception ex) {
-//                System.out.println(ex);
-            }
-        }
-
         if (e.getSource().equals(view1.getBnPrint())) {
             if (view1.getTxtAmount().getText().equals("") || view1.getTxtPrice().getText().equals("") || view1.getTxtName().getText().equals("") || view1.getTxtCode().getText().equals("")) {
                 JOptionPane.showMessageDialog(view1.getFr(), "No any Data!");
@@ -303,14 +337,19 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 }
             }
         }
-
         if (e.getSource().equals(view1.getBnCancel())) {
             if (view1.getTablemodel().soldProducts.size() >= 1) {
+                for (SoldProduct info : view1.getTablemodel().soldProducts) {
+                    int index = info.getNo() - 1;
+                    int amount = info.getAmount();
+                    products.get(index).setAmount(products.get(index).getAmount() + amount);
+                }
                 view1.getTablemodel().soldProducts.clear();
                 clearTxtfield(view1);
                 view1.getTablemodel().fireTableDataChanged();
                 view1.getTxtTotalPrice().setText("0");
-                view1.area.setText("");
+                setTxtBill();
+                saveWareHouse();
             }
         }
         if (e.getSource().equals(view1.getBnScan())) {
@@ -330,15 +369,6 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             } else {
                 view1.getTxtAmount().setEditable(false);
             }
-        }
-    }
-
-    public void amountCheck() {
-        for (int i = 0; i < view1.getTablemodel().soldProducts.size(); i++) {
-            int amount = Integer.valueOf(view1.getTablemodel().getValueAt(i, 3).toString());
-            System.out.println(amount);
-
-//                products.get(i)
         }
     }
 
@@ -369,6 +399,15 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         view1.area.setText(view1.area.getText() + "                            Cashier Management" + "\n");
     }
 
+    public void saveWareHouse() {
+        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+            ops.writeObject(this.products);
+        } catch (IOException ex) {
+            System.out.println("Error");
+            ex.printStackTrace();
+        }
+    }
+
     public void ResetTxtField() {
         view1.getTxtCode().setText("");
         view1.getTxtName().setText("");
@@ -386,6 +425,15 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         }
     }
 
+    public void saveSoldProduct() {
+        try (FileOutputStream stream = new FileOutputStream(flogs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
+            ops.writeObject(view1.getTablemodel().soldProducts);
+        } catch (IOException ex) {
+            System.out.println("Error");
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     public void windowOpened(WindowEvent e) {
         if (logs.exists()) {
@@ -395,11 +443,25 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
 //                System.out.println(ex);
             }
         }
+        if (flogs.exists()) {
+            try (FileInputStream stream = new FileInputStream(flogs); ObjectInputStream ips = new ObjectInputStream(stream);) {
+                this.Soldproducts = (ArrayList<SoldProduct>) ips.readObject();
+            } catch (Exception ex) {
+//                System.out.println(ex);
+            }
+        }
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-
+        if (view1.getTablemodel().soldProducts.size() >= 1) {
+            for (SoldProduct info : view1.getTablemodel().soldProducts) {
+                int index = info.getNo() - 1;
+                int amount = info.getAmount();
+                products.get(index).setAmount(products.get(index).getAmount() + amount);
+            }
+            saveWareHouse();
+        }
     }
 
     @Override

@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 public class registerHandler implements ActionListener {
 
     private registerGUI regui;
-    
 
     public registerHandler() {
         regui = new registerGUI();
@@ -39,9 +38,11 @@ public class registerHandler implements ActionListener {
             }
         }
     }
-    public JFrame getFr(){
-        return regui.getFr();
+
+    public JFrame getFr() {
+        return this.regui.getFr();
     }
+
     public static void main(String[] args) {
         new registerHandler();
     }

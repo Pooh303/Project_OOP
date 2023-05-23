@@ -9,7 +9,7 @@ public class Product implements Serializable {
     private double cost;
     private int amount;
     private int no;
-    
+
     public Product(int no, String code, String name, double price, double cost, int amount) {
         this.no = no;
         this.code = code;
@@ -18,7 +18,7 @@ public class Product implements Serializable {
         this.cost = cost;
         this.amount = amount;
     }
-    
+
     public Product(int no, String name, double price, int amount) {
         this.no = no;
         this.name = name;
@@ -39,8 +39,6 @@ public class Product implements Serializable {
         this.price = 0;
         this.amount = 0;
     }
-    
-    
 
     public int getNo() {
         return no;
@@ -95,5 +93,4 @@ public class Product implements Serializable {
         return "Product{" + "code=" + code + ", name=" + name + ", price=" + price + ", cost=" + cost + ", amount=" + amount + ", no=" + no + '}';
     }
 
-    
 }

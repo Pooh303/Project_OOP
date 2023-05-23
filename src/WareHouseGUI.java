@@ -197,6 +197,9 @@ public class WareHouseGUI {
         p19.add(p20, BorderLayout.EAST);
         p1.add(p19, BorderLayout.CENTER);
         table = new JTable();
+//        scrollPane.getViewport().setBackground(new Color(221, 219, 203, 255)); //221,219,203,255
+        JTableHeader Theader = table.getTableHeader();
+        Theader.setBackground(Color.WHITE);
 
         //Set Model for Jtable(ProductTableModel)
         tablemodel = new ProductTableModel();
@@ -274,6 +277,10 @@ public class WareHouseGUI {
         return tablemodel;
     }
 
+    public static void main(String[] args) {
+        new WareHouseGUI();
+    }
+
     public JFrame getFr() {
         return fr;
     }
@@ -286,7 +293,4 @@ public class WareHouseGUI {
         this.txtCost = txtCost;
     }
 
-//    public static void main(String[] args) {
-//        new WareHouseGUI();
-//    }
 }
