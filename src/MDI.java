@@ -18,7 +18,7 @@ public class MDI implements ActionListener, KeyListener {
     private JInternalFrame frame1, frame2;
     private loginHandler LoginFr;
     private JMenuBar mb;
-    private JMenuItem mi1, mi2, mi3, mi4, mi5;
+    private JMenuItem mi1, mi2, mi3, mi5;
     private JMenu m1, m2, m3;
 
     public MDI() {
@@ -26,18 +26,18 @@ public class MDI implements ActionListener, KeyListener {
         mb = new JMenuBar();
         m1 = new JMenu("File");
         m2 = new JMenu("Setting");
-        m3 = new JMenu("Theme");
+        m3 = new JMenu("Background");
         mi1 = new JMenuItem("Login");
         mi2 = new JMenuItem("exit");
-        mi3 = new JMenuItem("Choose Color");
-        mi4 = new JMenuItem("Browse photo");
+        mi3 = new JMenuItem("Color");
+//        mi4 = new JMenuItem("Browse photo");
         mi5 = new JMenuItem("");
 
         m1.add(mi1);
         m1.add(mi2);
         m2.add(m3);
         m3.add(mi3);
-        m3.add(mi4);
+//        m3.add(mi4);
         frame = new JFrame("Cashier Management");
         dp = new JDesktopPane();
         frame1 = new JInternalFrame("", false, true, false, false);
@@ -86,7 +86,7 @@ public class MDI implements ActionListener, KeyListener {
         mi1.addActionListener(this);
         mi2.addActionListener(this);
         mi3.addActionListener(this);
-        mi4.addActionListener(this);
+//        mi4.addActionListener(this);
         mb.addKeyListener(this); // Set the frame to be focused so that it can receive key events
         mb.setFocusable(true);
         mb.requestFocus();
@@ -110,14 +110,15 @@ public class MDI implements ActionListener, KeyListener {
             if (selectedColor != null) {
                 frame.getContentPane().setBackground(selectedColor);
             }
-
-        } else if (ev.getSource().equals(mi4)) {
-
         }
+//        } else if (ev.getSource().equals(mi4)) {
+//
+//        }
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e
+    ) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             int result = JOptionPane.showConfirmDialog(frame, "Do you wish to stop the program?", "", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION) {
@@ -127,11 +128,13 @@ public class MDI implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e
+    ) {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e
+    ) {
     }
 
 //    public static void main(String[] args) {

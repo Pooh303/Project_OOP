@@ -202,7 +202,7 @@ public class loginGUI extends JPanel {
         txt2 = new JPasswordField();
         txt2.setColumns(15);
         btn1 = new JButton("Login");
-        btn1.setFont(new Font("/font/CLOUD", Font.BOLD, 13));
+        btn1.setFont(new Font("CLOUD", Font.BOLD, 13));
 
         mid2.add(name);
         mid2.add(txt1);

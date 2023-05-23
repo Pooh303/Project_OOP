@@ -42,7 +42,7 @@ public class SellerGUI {
         txtChange.setEditable(false);
         txtChange.setFont(new Font("Angsana New", Font.BOLD, 25));
 
-        bnRecord = new JButton("Record [F5]");
+        bnRecord = new JButton("Record");
         bnRecord.setFocusable(false);
         bnCancel = new JButton("Cancel");
         bnCancel.setFocusable(false);

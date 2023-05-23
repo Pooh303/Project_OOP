@@ -25,12 +25,14 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     private Camera cam;
     private Thread t1;
     private boolean pauseSell = true;
+    private NumGen sr;
 
     String pattern = "MM/dd/yyyy";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String date = simpleDateFormat.format(new Date());
 
     public SellerHandler() {
+        sr = new NumGen();
         cam = new Camera();
         view1 = new SellerGUI();
         cam = new Camera();
@@ -66,6 +68,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         KeyStroke keyCal = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         view1.getTxtTotalPrice().registerKeyboardAction(this, "Calculator", keyCal, JComponent.WHEN_FOCUSED);
         view1.getTxtIncome().registerKeyboardAction(this, "Calculator", keyCal, JComponent.WHEN_FOCUSED);
+
     }
 
     public void init() {
@@ -76,6 +79,15 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         view1.getBnScan().addActionListener(this);
         view1.getCheckText().addActionListener(this);
         view1.getBnSell().addActionListener(this);
+    }
+
+    public void saveWareHouse() {
+        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+            ops.writeObject(this.products);
+        } catch (IOException ex) {
+            System.out.println("Error");
+            ex.printStackTrace();
+        }
     }
 
     //DeleteDataEventHandler
@@ -200,7 +212,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 double f_income = Double.parseDouble(view1.getTxtIncome().getText());
                 if (calChange(f_income, f_total)) {
                     for (SoldProduct info : view1.getTablemodel().soldProducts) {
-                        String billKey = "1";
+                        String billKey = sr.genNumber();
                         String date = this.date;
                         int amount = info.getAmount();
                         double cost = info.getCost();
@@ -397,15 +409,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         view1.area.setText(view1.area.getText() + "                       Thanks For Your Business...!" + "\n");
         view1.area.setText(view1.area.getText() + " --------------------------------------------------------------------------\n");
         view1.area.setText(view1.area.getText() + "                            Cashier Management" + "\n");
-    }
-
-    public void saveWareHouse() {
-        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
-            ops.writeObject(this.products);
-        } catch (IOException ex) {
-            System.out.println("Error");
-            ex.printStackTrace();
-        }
+        view1.area.setText(view1.area.getText() + "                              " + sr + "                          \n");
     }
 
     public void ResetTxtField() {

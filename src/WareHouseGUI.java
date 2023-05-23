@@ -157,9 +157,16 @@ public class WareHouseGUI {
         p9.add(p17);
         p18.add(laCost);
         p18.add(txtCost);
+//        MyTranscoder transcoder = new MyTranscoder();
+//        TranscodingHints hints = new TranscodingHints();
+//        hints.put(ImageTranscoder.KEY_WIDTH, 1200);
+//        hints.put(ImageTranscoder.KEY_HEIGHT, 1200);
+//        transcoder.setTranscodingHints(hints);
+//        transcoder.transcode(new TranscoderInput("pic/warehouse.svg"), null);
+//        BufferedImage image = transcoder.getImage();
 
-        ImageIcon backgroundImage = new ImageIcon("pic/WareHouse.svg");
-        JLabel backgroundLabel = new JLabel(backgroundImage);
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("pic/warehouse.png").getImage().getScaledInstance(750, 128, Image.SCALE_DEFAULT));
+        JLabel backgroundLabel = new JLabel(imageIcon);
         p7.add(backgroundLabel);
 
         p1.setBackground(new Color(231, 70, 70));

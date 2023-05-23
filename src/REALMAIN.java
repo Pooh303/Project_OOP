@@ -173,6 +173,7 @@ public class REALMAIN extends javax.swing.JFrame {
     private void sell1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sell1MouseClicked
         if (Handler.sellerHandler == null) {
             Handler.sellerHandler = new SellerHandler();
+            Handler.sellerHandler.start();
         }
         JFrame frame = Handler.sellerHandler.getFr();
         if (Handler.isOpenSellerhandler) {
@@ -188,6 +189,7 @@ public class REALMAIN extends javax.swing.JFrame {
 
         if (Handler.wareHouseHandler == null) {
             Handler.wareHouseHandler = new WareHouseHandler();
+
         }
         JFrame frame = Handler.wareHouseHandler.getFr();
         if (Handler.isOpenWareHouseHandler) {
