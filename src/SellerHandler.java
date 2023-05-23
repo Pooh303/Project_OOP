@@ -18,8 +18,12 @@ import javax.swing.table.DefaultTableModel;
 public class SellerHandler extends Thread implements ActionListener, WindowListener, KeyListener, MouseListener {
 
     ArrayList<Product> products;
+    private Product pro;
+    ArrayList<Product> wareProduct;
     private SellerGUI view1;
+    private WareHouseGUI view2;
     private SoldProduct obj_sp1;
+    private Product obj_sp2;
     private File logs;
     private Camera cam;
     private Thread t1;
@@ -32,10 +36,10 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     public SellerHandler() {
         cam = new Camera();
         view1 = new SellerGUI();
-        cam = new Camera();
         t1 = new Thread(cam);
         t1.start();
         products = new ArrayList<Product>();
+        obj_sp2 = new Product();
         logs = new File("Products.dat");
 
         try {
@@ -65,6 +69,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     public void init() {
         view1.getFr().addWindowListener(this);
         view1.getBnRecord().addActionListener(this);
+        view1.getBnSell().addActionListener(this);
         view1.getBnPrint().addActionListener(this);
         view1.getBnCancel().addActionListener(this);
         view1.getBnScan().addActionListener(this);
@@ -197,7 +202,21 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             } else if (checkNo(view1.getTxtCode().getText(), this.products) == -1) {
                 JOptionPane.showMessageDialog(view1.getFr(), "This product does not exist in the system.");
                 ResetTxtField();
+            } else if (searchProduct(view1.getTxtCode().getText(), products).getAmount() < 0) {
+                JOptionPane.showMessageDialog(null, "Your product ran out of stock!");
             } else {
+                //not yet
+                Product pro = new Product();
+                pro = searchProduct(view1.getTxtCode().getText(), products);
+                int newamount = Integer.parseInt(view1.getTxtAmount().getText());
+                int oldamount = pro.getAmount();
+                int ans = oldamount - newamount;
+                if (ans < 0) {
+                    JOptionPane.showMessageDialog(view1.getFr(), "Your product ran out of stock!", "Error", newamount);
+                } else {
+                    pro.setAmount(pro.getAmount() - newamount);
+
+                }
                 try {
                     if (view1.getTxtAmount().getText().equals("") & !view1.getTxtCode().getText().equals("")) {
                         Product obj = new Product();
@@ -263,6 +282,15 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 setTxtBill();
             }
         }
+
+        if (e.getSource().equals(view1.getBnSell())) {
+            try (FileOutputStream save = new FileOutputStream(logs); ObjectOutputStream ips = new ObjectOutputStream(save);) {
+                ips.writeObject(products);
+            } catch (Exception ex) {
+//                System.out.println(ex);
+            }
+        }
+
         if (e.getSource().equals(view1.getBnPrint())) {
             if (view1.getTxtAmount().getText().equals("") || view1.getTxtPrice().getText().equals("") || view1.getTxtName().getText().equals("") || view1.getTxtCode().getText().equals("")) {
                 JOptionPane.showMessageDialog(view1.getFr(), "No any Data!");
@@ -275,6 +303,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 }
             }
         }
+
         if (e.getSource().equals(view1.getBnCancel())) {
             if (view1.getTablemodel().soldProducts.size() >= 1) {
                 view1.getTablemodel().soldProducts.clear();
@@ -301,6 +330,15 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
             } else {
                 view1.getTxtAmount().setEditable(false);
             }
+        }
+    }
+
+    public void amountCheck() {
+        for (int i = 0; i < view1.getTablemodel().soldProducts.size(); i++) {
+            int amount = Integer.valueOf(view1.getTablemodel().getValueAt(i, 3).toString());
+            System.out.println(amount);
+
+//                products.get(i)
         }
     }
 
@@ -492,8 +530,8 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     @Override
     public void mouseExited(MouseEvent e) {
     }
-    
-    public JFrame getFr(){
+
+    public JFrame getFr() {
         return view1.getFr();
     }
 

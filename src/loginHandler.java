@@ -17,7 +17,8 @@ public class loginHandler extends JPanel implements ActionListener {
 
     private loginGUI viewlogin;
     private File logs;
-    private String username, password;
+    private String username = "admin";
+    private String password = "1234";
     Connection conn = null;
     PreparedStatement stmt, stmt2 = null;
     ResultSet us, ps = null;

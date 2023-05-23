@@ -64,7 +64,7 @@ public class WareHouseGUI {
         //set textfield on JPanel
         txtName = new JTextField(15); //Name
         txtName.setFont(new Font("CLOUD", Font.BOLD, 15));
-        
+
         txtCost = new JTextField(15); //cost
         txtCost.setFont(new Font("CLOUD", Font.BOLD, 15));
 
@@ -84,7 +84,6 @@ public class WareHouseGUI {
         //Set JLabel
 //        title1 = new JLabel("WareHouse");
 //        title1.setFont(new Font("CLOUD", Font.BOLD, 80));
-
         la_DateOfTime = new JLabel("Date");
         la_DateOfTime.setFont(new Font("CLOUD", Font.BOLD, 20));
         la_DateOfTime.setForeground(Color.WHITE);
@@ -104,11 +103,11 @@ public class WareHouseGUI {
         la4 = new JLabel(" S/N");
         la4.setFont(new Font("CLOUD", Font.BOLD, 13));
         la4.setForeground(Color.WHITE);
-        
+
         laCost = new JLabel("Cost");
         laCost.setFont(new Font("CLOUD", Font.BOLD, 13));
         laCost.setForeground(Color.WHITE);
-        
+
         //Set JButton on JFrame
         bn1 = new JButton("RECORD [ENTER]");
         bn1.setFont(new Font("CLOUD", Font.PLAIN, 12));
@@ -158,36 +157,34 @@ public class WareHouseGUI {
         p9.add(p17);
         p18.add(laCost);
         p18.add(txtCost);
-        
-        
+
         ImageIcon backgroundImage = new ImageIcon("pic/warehouse.png");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         p7.add(backgroundLabel);
-        
-        p1.setBackground(new Color(231,70,70));
-        p7.setBackground(new Color(47,47,47));
-        p2.setBackground(new Color(47,47,47));
-        p3.setBackground(new Color(47,47,47));
-        p4.setBackground(new Color(47,47,47));
-        p5.setBackground(new Color(47,47,47));
-        p6.setBackground(new Color(47,47,47));
-        p8.setBackground(new Color(47,47,47));
-        p9.setBackground(new Color(47,47,47));
-        p10.setBackground(new Color(47,47,47));
-        p11.setBackground(new Color(47,47,47));
-        p12.setBackground(new Color(47,47,47));
-        p13.setBackground(new Color(47,47,47));
-        p14.setBackground(new Color(47,47,47));
-        p15.setBackground(new Color(47,47,47));
-        p16.setBackground(new Color(47,47,47));
-        p17.setBackground(new Color(47,47,47));
-        p18.setBackground(new Color(47,47,47));
-        p19.setBackground(new Color(47,47,47));
-        p20.setBackground(new Color(47,47,47));
-        
+
+        p1.setBackground(new Color(231, 70, 70));
+        p7.setBackground(new Color(47, 47, 47));
+        p2.setBackground(new Color(47, 47, 47));
+        p3.setBackground(new Color(47, 47, 47));
+        p4.setBackground(new Color(47, 47, 47));
+        p5.setBackground(new Color(47, 47, 47));
+        p6.setBackground(new Color(47, 47, 47));
+        p8.setBackground(new Color(47, 47, 47));
+        p9.setBackground(new Color(47, 47, 47));
+        p10.setBackground(new Color(47, 47, 47));
+        p11.setBackground(new Color(47, 47, 47));
+        p12.setBackground(new Color(47, 47, 47));
+        p13.setBackground(new Color(47, 47, 47));
+        p14.setBackground(new Color(47, 47, 47));
+        p15.setBackground(new Color(47, 47, 47));
+        p16.setBackground(new Color(47, 47, 47));
+        p17.setBackground(new Color(47, 47, 47));
+        p18.setBackground(new Color(47, 47, 47));
+        p19.setBackground(new Color(47, 47, 47));
+        p20.setBackground(new Color(47, 47, 47));
+
 //        JTableHeader Theader = table.getTableHeader();
 //        Theader.setBackground(Color.white);
-
         //Add components on the JFrame
         p1.add(p2, BorderLayout.WEST);
         p1.add(p7, BorderLayout.NORTH);
@@ -200,7 +197,7 @@ public class WareHouseGUI {
         p19.add(p20, BorderLayout.EAST);
         p1.add(p19, BorderLayout.CENTER);
         table = new JTable();
-        
+
         //Set Model for Jtable(ProductTableModel)
         tablemodel = new ProductTableModel();
         table.setModel(tablemodel);
@@ -277,10 +274,6 @@ public class WareHouseGUI {
         return tablemodel;
     }
 
-    public static void main(String[] args) {
-        new WareHouseGUI();
-    }
-
     public JFrame getFr() {
         return fr;
     }
@@ -292,7 +285,8 @@ public class WareHouseGUI {
     public void setTxtCost(JTextField txtCost) {
         this.txtCost = txtCost;
     }
-    
-    
 
+//    public static void main(String[] args) {
+//        new WareHouseGUI();
+//    }
 }

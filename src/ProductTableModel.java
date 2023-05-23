@@ -15,7 +15,6 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
 
     //กำหนดค่าเริ่มต้นให้กับข้อมูล
     private void initDatas() {
-        products.add(new Product(111,"11","111",111,111,111));
     }
 
     @Override
