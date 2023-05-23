@@ -158,7 +158,7 @@ public class WareHouseGUI {
         p18.add(laCost);
         p18.add(txtCost);
 
-        ImageIcon backgroundImage = new ImageIcon("pic/warehouse.png");
+        ImageIcon backgroundImage = new ImageIcon("pic/WareHouse.svg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         p7.add(backgroundLabel);
 

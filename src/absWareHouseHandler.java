@@ -1,5 +1,6 @@
 
 public abstract class absWareHouseHandler {
+
     protected int num = 0;
 
     public int getNum() {
@@ -9,7 +10,7 @@ public abstract class absWareHouseHandler {
     public void setNum(int num) {
         this.num = num;
     }
-    
+
     public abstract void saveDataToFile();
 
 }

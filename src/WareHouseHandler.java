@@ -38,8 +38,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
 
         // Add Delete button shortcut
         KeyStroke delete = KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0);
-        view.getTable().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-                .put(delete, "delete");
+        view.getTable().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(delete, "delete");
         view.getTable().getActionMap().put("delete", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,12 +82,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
                 } catch (NumberFormatException ev) {
                     JOptionPane.showMessageDialog(view.getFr(), "Price and Amount can input only number!");
                 }
-                try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
-                    ops.writeObject(view.getTablemodel().products);
-                } catch (IOException ex) {
-                    System.out.println("Error");
-                    ex.printStackTrace();
-                }
+                saveDataToFile();
                 view.gettxtName().setText("");
                 view.gettxtAmount().setText("");
                 view.gettxtPrice().setText("");
@@ -226,12 +220,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
 
     @Override
     public void windowClosing(WindowEvent e) {
-        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
-            ops.writeObject(view.getTablemodel().products);
-        } catch (IOException ex) {
-            System.out.println("Error");
-            ex.printStackTrace();
-        }
+        saveDataToFile();
     }
 
     @Override
@@ -303,20 +292,11 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
 
     @Override
     public void saveDataToFile() {
-        //////for close window if click yes it will save data if no it will dont save data because if click reset it will not save data
-        if (this.getNum() == 0) {
-            int choice = JOptionPane.showConfirmDialog(null, "Are you want to save data?", "Exit", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-                this.setNum(1);
-                if (this.getNum() == 1) {
-                    try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
-                        ops.writeObject(view.getTablemodel().products);
-                    } catch (IOException ex) {
-                        System.out.println("Error");
-                        ex.printStackTrace();
-                    }
-                }
-            }
+        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+            ops.writeObject(view.getTablemodel().products);
+        } catch (IOException ex) {
+            System.out.println("Error");
+            ex.printStackTrace();
         }
     }
 
