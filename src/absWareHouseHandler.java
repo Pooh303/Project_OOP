@@ -11,6 +11,6 @@ public abstract class absWareHouseHandler {
         this.num = num;
     }
 
-    public abstract void saveDataToFile();
+    public abstract void saveDataToFileforExit();
 
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 
-public class WareHouseHandler implements ActionListener, WindowListener, MouseListener {
+public class WareHouseHandler extends absWareHouseHandler implements ActionListener, WindowListener, MouseListener {
 
     private WareHouseGUI view;
     private Product obj_p1;
@@ -83,7 +83,7 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
                 } catch (NumberFormatException ev) {
                     JOptionPane.showMessageDialog(view.getFr(), "Price and Amount can input only number!");
                 }
-                try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
+                try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream);) {
                     ops.writeObject(view.getTablemodel().products);
                 } catch (IOException ex) {
                     System.out.println("Error");
@@ -204,7 +204,7 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
             } catch (NumberFormatException ev) {
                 JOptionPane.showMessageDialog(view.getFr(), "Price and Amount can input only number!");
             }
-            try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
+            try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream);) {
                 ops.writeObject(view.getTablemodel().products);
             } catch (IOException ex) {
                 System.out.println("Error");
@@ -222,18 +222,13 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
 
     @Override
     public void windowClosing(WindowEvent e) {
-        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
-            ops.writeObject(view.getTablemodel().products);
-        } catch (IOException ex) {
-            System.out.println("Error");
-            ex.printStackTrace();
-        }
+        saveDataToFileforExit();
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
         if (logs.exists()) {
-            try (FileInputStream stream = new FileInputStream(logs); ObjectInputStream ips = new ObjectInputStream(stream);) {
+            try ( FileInputStream stream = new FileInputStream(logs);  ObjectInputStream ips = new ObjectInputStream(stream);) {
                 view.getTablemodel().products = (ArrayList<Product>) ips.readObject();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -298,11 +293,34 @@ public class WareHouseHandler implements ActionListener, WindowListener, MouseLi
     }
 
     private void saveDataToFile() {
-        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+        try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream)) {
             ops.writeObject(view.getTablemodel().products);
         } catch (IOException ex) {
             System.out.println("Error");
             ex.printStackTrace();
+        }
+    }
+
+    public void setnum(absWareHouseHandler num) {
+        num.setNum(1);
+    }
+
+    //// this method for save data after exit program only to make the method that have Abstract class parameter used ///
+    @Override
+    public void saveDataToFileforExit() {
+        if (this.getNum() == 0) {
+            int choice = JOptionPane.showConfirmDialog(null, "Are you want to save data?", "Exit", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                this.setNum(1);
+                if (this.getNum() == 1) {
+                    try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+                        ops.writeObject(view.getTablemodel().products);
+                    } catch (IOException ex) {
+                        System.out.println("Error");
+                        ex.printStackTrace();
+                    }
+                }
+            }
         }
     }
 
