@@ -305,7 +305,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
         num.setNum(1);
     }
 
-    //// this method for save data after exit program only to make the method that have Abstract class parameter used ///
+    //// this method for save data after exit program only to make the method that have Abstract class parameter used ////
     @Override
     public void saveDataToFileforExit() {
         if (this.getNum() == 0) {
