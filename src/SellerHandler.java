@@ -23,14 +23,12 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
     private Camera cam;
     private Thread t1;
     private boolean pauseSell = true;
-    private NumGen sr;
 
     String pattern = "MM/dd/yyyy";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     String date = simpleDateFormat.format(new Date());
 
     public SellerHandler() {
-        sr = new NumGen();
         cam = new Camera();
         view1 = new SellerGUI();
         cam = new Camera();
@@ -210,7 +208,6 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 double f_income = Double.parseDouble(view1.getTxtIncome().getText());
                 if (calChange(f_income, f_total)) {
                     for (SoldProduct info : view1.getTablemodel().soldProducts) {
-                        String billKey = sr.genNumber();
                         String date = this.date;
                         int amount = info.getAmount();
                         double cost = info.getCost();
@@ -220,6 +217,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                         int no = info.getNo();
                         String name = info.getName();
                         String code = info.getCode();
+                        String billKey = "1";
                         obj_sp1 = new SoldProduct(billKey, date, tcost, tprice, no, code, name, price, cost, amount);
                         Soldproducts.add(obj_sp1);
                     }
@@ -407,7 +405,6 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
         view1.area.setText(view1.area.getText() + "                       Thanks For Your Business...!" + "\n");
         view1.area.setText(view1.area.getText() + " --------------------------------------------------------------------------\n");
         view1.area.setText(view1.area.getText() + "                            Cashier Management" + "\n");
-        view1.area.setText(view1.area.getText() + "                              " + sr + "                          \n");
     }
 
     public void ResetTxtField() {
