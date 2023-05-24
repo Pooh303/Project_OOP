@@ -20,7 +20,7 @@ public class WareHouseGUI {
         fr = new JFrame();
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //Set size of JFrame
-        fr.setBounds(580, 250, 850, 650);
+        fr.setBounds(700, 200, 850, 650);
         //Set Layout for JPanel
         p1 = new JPanel();
         p1.setLayout(new BorderLayout());

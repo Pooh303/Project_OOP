@@ -22,7 +22,7 @@ public class ReportsGUI {
         /// Frame ///
         fr = new JFrame("Report");
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fr.setBounds(580, 250, 850, 650);
+        fr.setBounds(700, 200, 850, 650);
         fr.setLayout(new BorderLayout());
 
         /// Panel Setting ///

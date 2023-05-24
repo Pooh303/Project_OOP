@@ -16,7 +16,7 @@ public class registerGUI {
         ///  JFrame setup  ///
         fr = new JFrame();
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fr.setBounds(800, 280, 300, 500);
+        fr.setBounds(800, 200, 300, 500);
         fr.setResizable(false);
 
         ///  Background setup  ///

@@ -19,7 +19,7 @@ public class SellerGUI {
 
     public SellerGUI() {
         Fr = new JFrame();
-        Fr.setSize(850, 750);
+        Fr.setBounds(700, 150, 850, 750);
         Fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         txtCode = new JTextField(12);
