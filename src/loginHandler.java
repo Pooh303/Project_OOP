@@ -32,7 +32,6 @@ public class loginHandler extends loginGUI implements ActionListener {
     public loginHandler() {
         logs = new File("login.txt");
         checkFile();
-        CheckServer();
         init();
 
     }
@@ -58,38 +57,6 @@ public class loginHandler extends loginGUI implements ActionListener {
         }
     }
 
-    public void CheckServer() {
-        try {
-            // Connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/login", "root", "");
-
-            // Prepare the statement with parameter placeholder
-            String sqluser = "SELECT Username FROM enter WHERE ID = ?"; // Assuming ID is the primary key column
-            String sqlpass = "SELECT Password FROM enter WHERE ID = ?";
-            stmt = conn.prepareStatement(sqluser);
-            stmt2 = conn.prepareStatement(sqlpass);
-
-            // Set the parameter value
-            int id = 1; // Replace with the appropriate ID value
-            stmt.setInt(1, id);
-            stmt2.setInt(1, id);
-
-            // Execute the query
-            us = stmt.executeQuery();
-            ps = stmt2.executeQuery();
-            // Process the result set
-            if (us.next() & ps.next()) {
-                username = us.getString("Username");
-                password = ps.getString("Password");
-                // See username and password
-//                System.out.println(username);
-//                System.out.println(password);
-            }
-        } catch (SQLException e) {
-//            e.printStackTrace();
-        }
-    }
-
     public String getusername() {
         String temp = getTxt1().getText();
         return temp;
@@ -102,36 +69,25 @@ public class loginHandler extends loginGUI implements ActionListener {
         String sum = userinput + "\t" + passwordinput;
         boolean match = false;
         if (e.getSource().equals(getLoginBtn())) {
-            CheckServer();
+            
             if (getTxt1().getText().isEmpty() & getTxt2().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter your username and password.", "Error", 0);
             } else if (getTxt1().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter your username.", "Error", 0);
             } else if (getTxt2().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter your password.", "Error", 0);
-//            } else if (username == null & password == null) {
-//                JOptionPane.showMessageDialog(null, "Server is offline", "Error", 0);
+
             } else {
                 try {
                     FileReader fre = new FileReader(logs);
                     BufferedReader br = new BufferedReader(fre);
                     String data = "";
-//                    while (!sum.equals("")) {
-//                        if (sum.equals(username + "\t" + password)) {
-//                            match = true;
-//                            break;
-//                        } else {
-//                            match = false;
-//                            break;
-//                        }
-//                    }
+
                     while ((data = br.readLine()) != null) {
                         if (data.equals(sum)) {
                             match = true;
                             break;
-                        } else {
-                            match = false;
-                            break;
+
                         }
                     }
                     if (match) {
