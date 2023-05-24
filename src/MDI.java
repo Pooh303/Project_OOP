@@ -78,7 +78,7 @@ public class MDI implements ActionListener, KeyListener {
         // Validate the frame to ensure proper layout
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setVisible(false);
+        frame.setVisible(true);
 
         // Add a key listener to the frame to listen for "Escape" key press
         mi1.addActionListener(this);
@@ -134,16 +134,6 @@ public class MDI implements ActionListener, KeyListener {
     ) {
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        SwingUtilities.invokeLater(() -> {
-//            MDI frame = new MDI();
-//        });
-//    }
     public void OpenFrame1() {
         frame1 = new JInternalFrame("", false, true, false, false);
         frame1.add(LoginFr);
@@ -164,11 +154,21 @@ public class MDI implements ActionListener, KeyListener {
     }
 
 //    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                new MDI();
-//            }
+//        try {
+//            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        SwingUtilities.invokeLater(() -> {
+//            MDI frame = new MDI();
 //        });
 //    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new MDI();
+            }
+        });
+    }
 }

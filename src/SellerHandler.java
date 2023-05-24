@@ -1,6 +1,5 @@
 
-import static com.barcodelib.barcode.a.b.h.i;
-import com.github.sarxos.webcam.WebcamLockException;
+//Import section
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 import java.io.*;
@@ -13,7 +12,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
-import javax.swing.table.DefaultTableModel;
 
 public class SellerHandler extends Thread implements ActionListener, WindowListener, KeyListener, MouseListener {
 

@@ -1,4 +1,5 @@
 
+//Import section
 import com.github.sarxos.webcam.Webcam;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;

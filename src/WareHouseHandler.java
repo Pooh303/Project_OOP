@@ -1,4 +1,5 @@
 
+//Import section
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 import java.io.*;
@@ -83,7 +84,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
                 } catch (NumberFormatException ev) {
                     JOptionPane.showMessageDialog(view.getFr(), "Price and Amount can input only number!");
                 }
-                try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream);) {
+                try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
                     ops.writeObject(view.getTablemodel().products);
                 } catch (IOException ex) {
                     System.out.println("Error");
@@ -204,7 +205,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
             } catch (NumberFormatException ev) {
                 JOptionPane.showMessageDialog(view.getFr(), "Price and Amount can input only number!");
             }
-            try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream);) {
+            try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream);) {
                 ops.writeObject(view.getTablemodel().products);
             } catch (IOException ex) {
                 System.out.println("Error");
@@ -228,7 +229,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
     @Override
     public void windowOpened(WindowEvent e) {
         if (logs.exists()) {
-            try ( FileInputStream stream = new FileInputStream(logs);  ObjectInputStream ips = new ObjectInputStream(stream);) {
+            try (FileInputStream stream = new FileInputStream(logs); ObjectInputStream ips = new ObjectInputStream(stream);) {
                 view.getTablemodel().products = (ArrayList<Product>) ips.readObject();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -293,13 +294,14 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
     }
 
     private void saveDataToFile() {
-        try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+        try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
             ops.writeObject(view.getTablemodel().products);
         } catch (IOException ex) {
             System.out.println("Error");
             ex.printStackTrace();
         }
     }
+
     //// method that received abstract class parameter ///
     public void setnum(absWareHouseHandler num) {
         num.setNum(1);
@@ -309,11 +311,11 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
     @Override
     public void saveDataToFileforExit() {
         if (this.getNum() == 0) {
-            int choice = JOptionPane.showConfirmDialog(null, "Are you want to save data?", "Exit", JOptionPane.YES_NO_OPTION);
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the data?", "Exit", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 this.setNum(1);
                 if (this.getNum() == 1) {
-                    try ( FileOutputStream stream = new FileOutputStream(logs);  ObjectOutputStream ops = new ObjectOutputStream(stream)) {
+                    try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
                         ops.writeObject(view.getTablemodel().products);
                     } catch (IOException ex) {
                         System.out.println("Error");

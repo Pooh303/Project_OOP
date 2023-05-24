@@ -1,8 +1,8 @@
 
+//Import section
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 
 public class SellerGUI {
 

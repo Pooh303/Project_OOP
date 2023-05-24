@@ -1,4 +1,5 @@
 
+//Import section
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.JTableHeader;

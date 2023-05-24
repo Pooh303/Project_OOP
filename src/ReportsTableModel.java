@@ -1,4 +1,5 @@
 
+//Import section
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -6,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class ReportsTableModel extends AbstractTableModel implements Serializable {
 
     ArrayList<SoldProduct> soldProducts;
-    String[] header = {"Sold Date" ,"Code", "Name", "Cost","Price", "Amount", "Total Cost", "Total Price"};
+    String[] header = {"Sold Date", "Code", "Name", "Cost", "Price", "Amount", "Total Cost", "Total Price"};
 
     public ReportsTableModel() {
         soldProducts = new ArrayList<SoldProduct>();

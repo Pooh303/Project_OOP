@@ -1,11 +1,7 @@
 
-import com.github.sarxos.webcam.WebcamEventType;
+//Import section
 import java.awt.event.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +10,6 @@ import java.sql.SQLException;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
@@ -109,7 +104,7 @@ public class loginHandler extends loginGUI implements ActionListener {
                     if (match) {
                         JOptionPane.showMessageDialog(null, "Login success!", "", 1);
                         MDI mi = new MDI();
-                        mi.getFr().dispose();
+//                        mi.getFr().dispose();
                         REALMAIN rm = new REALMAIN();
                         rm.setVisible(true);
 
@@ -123,14 +118,14 @@ public class loginHandler extends loginGUI implements ActionListener {
         }
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame();
-//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            frame.setBounds(800, 280, 300, 500);
-//            frame.setResizable(false);
-//            frame.add(new loginHandler());
-//            frame.setVisible(true);
-//        });
-//    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setBounds(800, 280, 300, 500);
+            frame.setResizable(false);
+            frame.add(new loginHandler());
+            frame.setVisible(true);
+        });
+    }
 }

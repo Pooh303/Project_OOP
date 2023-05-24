@@ -1,7 +1,7 @@
 
+//Import section
 import java.awt.*;
 import javax.swing.*;
-import java.io.*;
 
 public class registerGUI {
 
@@ -29,7 +29,7 @@ public class registerGUI {
         ImageIcon backgroundImage = new ImageIcon("pic/register.png");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         pbacktop.add(backgroundLabel);
-        
+
         pBackground.add(pbacktop, BorderLayout.NORTH);
 
         header = new JLabel("Register");
@@ -56,15 +56,15 @@ public class registerGUI {
         mid2 = new JPanel();
         mid2.setLayout(new FlowLayout());
 
-        name = new JLabel("Username                                    ");
-        name.setFont(new Font("CLOUD", Font.BOLD, 12));
-        username = new JLabel("Password                                    ");
-        username.setFont(new Font("CLOUD", Font.BOLD, 12));
+        name = new JLabel("Username                      ");
+        name.setFont(new Font("CLOUD", Font.BOLD, 13));
+        username = new JLabel("Password                      ");
+        username.setFont(new Font("CLOUD", Font.BOLD, 13));
 
         txt1 = new JTextField();
-        txt1.setColumns(14);
+        txt1.setColumns(15);
         txt2 = new JTextField();
-        txt2.setColumns(14);
+        txt2.setColumns(15);
 
         btn1 = new JButton("Cancel");
         btn1.setFont(new Font("CLOUD", Font.BOLD, 13));
@@ -81,17 +81,18 @@ public class registerGUI {
         cmiddle.add(mid1);
         cmiddle.add(mid2);
         cmiddle.add(mid3);
-        
-        pBackground.setBackground(new Color(52,250,202));
-        pbacktop.setBackground(new Color(47,47,47));
-        cmiddle.setBackground(new Color(52,250,202));
-        mid2.setBackground(new Color(52,250,202));
-        mid1.setBackground(new Color(52,250,202));
-        mid3.setBackground(new Color(52,250,202));
-        cleft.setBackground(new Color(52,250,202));
-        cright.setBackground(new Color(52,250,202));
-        cmiddle.setBackground(new Color(52,250,202));
-        
+
+        Color white = new Color(242, 242, 242);
+        pBackground.setBackground(white);
+        pbacktop.setBackground(white);
+        cmiddle.setBackground(white);
+        mid2.setBackground(white);
+        mid1.setBackground(white);
+        mid3.setBackground(white);
+        cleft.setBackground(white);
+        cright.setBackground(white);
+        cmiddle.setBackground(white);
+
         fr.setUndecorated(true);
         fr.getContentPane();
 

@@ -1,7 +1,7 @@
 
+//Import section
 import java.io.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class ProductTableModel extends AbstractTableModel implements Serializable {
@@ -63,26 +63,26 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
         }
     }
 
-    public boolean checkCode(String code, int index , ArrayList<Product> list) {
+    public boolean checkCode(String code, int index, ArrayList<Product> list) {
         int i = 0;
-        try{
+        try {
             String c_code = list.get(index).getCode();
-        if (c_code.equals(code)){
-            return false;
-        }
-        while (i < list.size()) {
-            if (code.equals((list.get(i).getCode()))) {
-                return true;
+            if (c_code.equals(code)) {
+                return false;
             }
-            i += 1;
-        }
-        }catch (Exception ex){
-            System.out.println("pls select row in table.");
+            while (i < list.size()) {
+                if (code.equals((list.get(i).getCode()))) {
+                    return true;
+                }
+                i += 1;
+            }
+        } catch (Exception ex) {
+            System.out.println("Please select a row in the table.");
         }
         return false;
     }
-         
-    public boolean checkCode(String code, ArrayList<Product> list){
+
+    public boolean checkCode(String code, ArrayList<Product> list) {
         int i = 0;
         while (i < list.size()) {
             if (code.equals((list.get(i).getCode()))) {
@@ -99,4 +99,4 @@ public class ProductTableModel extends AbstractTableModel implements Serializabl
         }
     }
 
-    }
+}
