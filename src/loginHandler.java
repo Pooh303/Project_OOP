@@ -1,7 +1,11 @@
 
 //Import section
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,15 +22,16 @@ public class loginHandler extends loginGUI implements ActionListener {
 
     private MDI mdi;
     private File logs;
-    private String username = "admin";
-    private String password = "1234";
+    private String username;
+    private String password;
     private boolean check = false;
     Connection conn = null;
     PreparedStatement stmt, stmt2 = null;
     ResultSet us, ps = null;
 
     public loginHandler() {
-//        viewlogin = new loginGUI();
+        logs = new File("login.txt");
+        checkFile();
         CheckServer();
         init();
 
@@ -37,6 +42,20 @@ public class loginHandler extends loginGUI implements ActionListener {
 
         KeyStroke enterKey = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
         getLoginBtn().registerKeyboardAction(this, "login", enterKey, JComponent.WHEN_IN_FOCUSED_WINDOW);
+    }
+
+    public void checkFile() {
+        logs = new File("login.txt");
+        if (!logs.exists()) {
+            try {
+                logs.createNewFile();
+                FileWriter fw = new FileWriter("login.txt", true);
+                fw.write("admin" + "\t" + "1234" + "\n");
+                fw.close();
+            } catch (IOException ev) {
+                ev.printStackTrace();
+            }
+        }
     }
 
     public void CheckServer() {
@@ -90,12 +109,24 @@ public class loginHandler extends loginGUI implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please enter your username.", "Error", 0);
             } else if (getTxt2().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter your password.", "Error", 0);
-            } else if (username == null & password == null) {
-                JOptionPane.showMessageDialog(null, "Server is offline", "Error", 0);
+//            } else if (username == null & password == null) {
+//                JOptionPane.showMessageDialog(null, "Server is offline", "Error", 0);
             } else {
                 try {
-                    while (!sum.equals("")) {
-                        if (sum.equals(username + "\t" + password)) {
+                    FileReader fre = new FileReader(logs);
+                    BufferedReader br = new BufferedReader(fre);
+                    String data = "";
+//                    while (!sum.equals("")) {
+//                        if (sum.equals(username + "\t" + password)) {
+//                            match = true;
+//                            break;
+//                        } else {
+//                            match = false;
+//                            break;
+//                        }
+//                    }
+                    while ((data = br.readLine()) != null) {
+                        if (data.equals(sum)) {
                             match = true;
                             break;
                         } else {
@@ -123,14 +154,14 @@ public class loginHandler extends loginGUI implements ActionListener {
         return this.check;
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame();
-//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            frame.setBounds(800, 280, 300, 500);
-//            frame.setResizable(false);
-//            frame.add(new loginHandler());
-//            frame.setVisible(true);
-//        });
-//    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setBounds(800, 280, 300, 500);
+            frame.setResizable(false);
+            frame.add(new loginHandler());
+            frame.setVisible(true);
+        });
+    }
 }

@@ -26,7 +26,7 @@ public class MDI implements ActionListener, KeyListener {
         rm = new REALMAIN();
         LoginFr = new loginHandler();
         mb = new JMenuBar();
-        m1 = new JMenu("File");
+        m1 = new JMenu("System");
         m2 = new JMenu("Setting");
         m3 = new JMenu("Background");
         mi1 = new JMenuItem("Login");
@@ -70,6 +70,7 @@ public class MDI implements ActionListener, KeyListener {
         frame.setJMenuBar(mb);
         frame.setContentPane(dp);
         frame.setMinimumSize(new Dimension(450, 650));
+        frame.setLocation(700, 150);
 
 //        frame.setExtendedState(frame.MAXIMIZED_BOTH);
         // Set the frame to full screen
