@@ -300,7 +300,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
             ex.printStackTrace();
         }
     }
-
+    //// method that received abstract class parameter ///
     public void setnum(absWareHouseHandler num) {
         num.setNum(1);
     }
