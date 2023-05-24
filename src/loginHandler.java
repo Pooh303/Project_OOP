@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 public class loginHandler extends loginGUI implements ActionListener {
 
@@ -19,6 +20,7 @@ public class loginHandler extends loginGUI implements ActionListener {
     private File logs;
     private String username = "admin";
     private String password = "1234";
+    private boolean check = false;
     Connection conn = null;
     PreparedStatement stmt, stmt2 = null;
     ResultSet us, ps = null;
@@ -103,11 +105,10 @@ public class loginHandler extends loginGUI implements ActionListener {
                     }
                     if (match) {
                         JOptionPane.showMessageDialog(null, "Login success!", "", 1);
-                        MDI mi = new MDI();
-//                        mi.getFr().dispose();
-                        REALMAIN rm = new REALMAIN();
-                        rm.setVisible(true);
-
+                        if (Handler.isOpenRealMain) {
+                            new REALMAIN().setVisible(true);
+                            MDI.checked();
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong username or password.", "Error", 0);
                     }
@@ -118,14 +119,18 @@ public class loginHandler extends loginGUI implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setBounds(800, 280, 300, 500);
-            frame.setResizable(false);
-            frame.add(new loginHandler());
-            frame.setVisible(true);
-        });
+    public boolean getCheck() {
+        return this.check;
     }
+
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame();
+//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            frame.setBounds(800, 280, 300, 500);
+//            frame.setResizable(false);
+//            frame.add(new loginHandler());
+//            frame.setVisible(true);
+//        });
+//    }
 }

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Barcode">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Barcode/zxing-j2se-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Barcode/zxing-core-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Barcode/barcode.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Barcode/qrgen-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

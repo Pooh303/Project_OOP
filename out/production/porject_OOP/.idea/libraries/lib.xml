@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/lib/barcode.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/webcam-capture-0.3.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/jgoodies-looks-2.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/mysql-connector-j-8.0.33.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/qrgen-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/junit-4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/zxing-j2se-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/zxing-core-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/slf4j-api-1.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/bridj-0.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/jgoodies-common-1.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

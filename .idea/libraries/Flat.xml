@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Flat">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Flat/svgSalamander-1.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Flat/flatlaf-3.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Flat/flatlaf-extras-3.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

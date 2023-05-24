@@ -46,6 +46,7 @@ public class Camera implements MyWebCam, Runnable {
     }
 
     public void run() {
+        //getwebcam by default cam
         Webcam webcam = Webcam.getDefault();
         webcam.open();
         int i = 0;

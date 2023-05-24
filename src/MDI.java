@@ -20,8 +20,10 @@ public class MDI implements ActionListener, KeyListener {
     private JMenuBar mb;
     private JMenuItem mi1, mi2, mi3, mi5;
     private JMenu m1, m2, m3;
+    private REALMAIN rm;
 
     public MDI() {
+        rm = new REALMAIN();
         LoginFr = new loginHandler();
         mb = new JMenuBar();
         m1 = new JMenu("File");
@@ -163,12 +165,31 @@ public class MDI implements ActionListener, KeyListener {
 //            MDI frame = new MDI();
 //        });
 //    }
+    public static void checked() {
+        JFrame frame = Handler.mdi.getFr();
+        if (Handler.isOpenRealMain) {
+            frame.setVisible(!Handler.isOpenRealMain);
+            if (!frame.isVisible()) {
+                frame.dispose();
+            }
+            return;
+        }
+        frame.setVisible(true);
+        Handler.isOpenRealMain = true;
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MDI();
+
+                if (Handler.mdi == null) {
+                    Handler.mdi = new MDI();
+                }
+                checked();
             }
-        });
+        }
+        );
+
     }
 }
