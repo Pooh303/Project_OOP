@@ -7,16 +7,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
 
 public class loginHandler extends loginGUI implements ActionListener {
 
@@ -69,7 +66,7 @@ public class loginHandler extends loginGUI implements ActionListener {
         String sum = userinput + "\t" + passwordinput;
         boolean match = false;
         if (e.getSource().equals(getLoginBtn())) {
-            
+
             if (getTxt1().getText().isEmpty() & getTxt2().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter your username and password.", "Error", 0);
             } else if (getTxt1().getText().isEmpty()) {

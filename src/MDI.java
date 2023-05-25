@@ -4,10 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -53,16 +50,7 @@ public class MDI implements ActionListener, KeyListener {
         BasicInternalFrameTitlePane titlePane = (BasicInternalFrameTitlePane) ((BasicInternalFrameUI) frame1.getUI()).getNorthPane();
         frame1.remove(titlePane);
 
-//        frame2.add(new JLabel("Frame 1 Contens. ."));
-//        frame2.setBounds(0, 0, 0, 0);
-//        frame2.validate();
-//        frame2.setVisible(true);
-//        int x2 = frame1.getX() + frame1.getWidth() + 10;
-//        int y2 = frame1.getY();
-//        frame2.setLocation(x2, y2);
         dp.add(frame1);
-//        dp.add(frame2);
-
         mb.add(m1);
         mb.add(m2);
 
@@ -71,14 +59,6 @@ public class MDI implements ActionListener, KeyListener {
         frame.setContentPane(dp);
         frame.setMinimumSize(new Dimension(450, 650));
         frame.setLocation(700, 150);
-
-//        frame.setExtendedState(frame.MAXIMIZED_BOTH);
-        // Set the frame to full screen
-//        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        GraphicsDevice device = env.getDefaultScreenDevice();
-        // Enter full-screen mode
-//        device.setFullScreenWindow(frame);
-        // Validate the frame to ensure proper layout
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -87,7 +67,6 @@ public class MDI implements ActionListener, KeyListener {
         mi1.addActionListener(this);
         mi2.addActionListener(this);
         mi3.addActionListener(this);
-//        mi4.addActionListener(this);
         mb.addKeyListener(this); // Set the frame to be focused so that it can receive key events
         mb.setFocusable(true);
         mb.requestFocus();
@@ -111,9 +90,6 @@ public class MDI implements ActionListener, KeyListener {
                 frame.getContentPane().setBackground(selectedColor);
             }
         }
-//        } else if (ev.getSource().equals(mi4)) {
-//
-//        }
     }
 
     @Override
@@ -156,16 +132,6 @@ public class MDI implements ActionListener, KeyListener {
         this.frame.dispose();
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        SwingUtilities.invokeLater(() -> {
-//            MDI frame = new MDI();
-//        });
-//    }
     public static void checked() {
         JFrame frame = Handler.mdi.getFr();
         if (Handler.isOpenRealMain) {

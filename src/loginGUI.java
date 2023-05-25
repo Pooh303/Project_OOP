@@ -14,10 +14,10 @@ public class loginGUI extends JPanel {
 
     public loginGUI() {
 
-        ///  Background setup  ///
+        //  Background setup  //
         setLayout(new BorderLayout());
 
-        ///  Header Setup  ///
+        //  Header Setup  //
         pbacktop = new JPanel();
         pbacktop.setPreferredSize(new Dimension(300, 90));
         pbacktop.setBackground(Color.WHITE);
@@ -29,7 +29,7 @@ public class loginGUI extends JPanel {
         pbacktop.add(backgroundLabel);
         pbacktop.add(header);
 
-//         / Middle frame Layout ///
+        // Middle frame Layout //
         cleft = new JPanel();
         cleft.setPreferredSize(new Dimension(50, 450));
         add(cleft, BorderLayout.WEST);
@@ -43,7 +43,7 @@ public class loginGUI extends JPanel {
         cbottom = new JPanel();
 
         mid1 = new JPanel();
-        /// middle component ///
+        // middle component //
         mid2 = new JPanel();
         mid2.setLayout(new GridLayout(5, 1));
 
@@ -95,62 +95,8 @@ public class loginGUI extends JPanel {
         cbottom.setBackground(new Color(250, 152, 132));
         btnsoc1.setBackground(new Color(250, 152, 132));
         btnsoc2.setBackground(new Color(250, 152, 132));
-
-//        logs = new File("login.txt");
-//        if (!logs.exists()) {
-//            try {
-//                logs.createNewFile();
-//                FileWriter fw = new FileWriter("login.txt", true);
-//                fw.write("admin" + "\t" + "1234" + "\n");
-//                fw.close();
-//            } catch (IOException ev) {
-//                ev.printStackTrace();
-//            }
-//        }
-//
-//        init();
     }
 
-//    public void init() {
-//        btn1.addActionListener(this);
-//        txt1.addActionListener(this);
-//        txt2.addActionListener(this);
-//    }
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        String usname = txt1.getText();
-//        String pwrd = String.valueOf(txt2.getPassword());
-//        boolean match = false;
-//
-//        if (e.getSource().equals(btn1)) {
-//            if (txt1.getText().isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "Please insert your name.", "Error", 0);
-//            } else if (String.valueOf(txt2.getPassword()).isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "Please insert your Password.", "Error", 0);
-//            } else {
-//                try {
-//                    FileReader fre = new FileReader("login.txt");
-//                    BufferedReader br = new BufferedReader(fre);
-//                    String data = "";
-//                    while ((data = br.readLine()) != null) {
-//                        if (data.equals(usname + "\t" + pwrd)) {
-//                            match = true;
-//                            break;
-//                        }
-//                    }
-//                    if (match) {
-//                        SwingUtilities.getWindowAncestor(this).dispose();
-//                        new WareHouseHandler();
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Wrong Username or Password.", "Error", 0);
-//                    }
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//
-//            }
-//        }
-//    }
     public String getusername() {
         String temp = txt1.getText();
         return temp;
@@ -187,15 +133,4 @@ public class loginGUI extends JPanel {
     public void setBtn1(JButton btn1) {
         this.btn1 = btn1;
     }
-
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame();
-//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            frame.setBounds(800, 280, 300, 500);
-//            frame.setResizable(false);
-//            frame.add(new loginGUI());
-//            frame.setVisible(true);
-//        });
-//    }
 }

@@ -158,7 +158,6 @@ public class SellerGUI {
         area.setText(area.getText() + " --------------------------------------------------------------------------\n");
         area.setText(area.getText() + "                            Cashier Management" + "\n");
         TextAreaSP = new JScrollPane(area);
-//        TextAreaSP.setPreferredSize(new Dimension(40, 0));
 
         leftbottom.add(scrollPane, BorderLayout.CENTER);
 

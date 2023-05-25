@@ -1,9 +1,9 @@
 
-class SonyWebcam implements WebCamStatus {
+class Status implements WebCamStatus {
 
     private boolean isOn;
 
-    public SonyWebcam(boolean isOn) {
+    public Status(boolean isOn) {
         this.isOn = isOn;
     }
 

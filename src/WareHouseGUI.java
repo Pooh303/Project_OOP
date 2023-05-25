@@ -82,9 +82,6 @@ public class WareHouseGUI {
         txtDateOfTime.setFont(new Font("CLOUD", Font.BOLD, 15));
         txtDateOfTime.setEditable(false);
 
-        //Set JLabel
-//        title1 = new JLabel("WareHouse");
-//        title1.setFont(new Font("CLOUD", Font.BOLD, 80));
         la_DateOfTime = new JLabel("Date");
         la_DateOfTime.setFont(new Font("CLOUD", Font.BOLD, 20));
         la_DateOfTime.setForeground(Color.WHITE);
@@ -127,7 +124,6 @@ public class WareHouseGUI {
         bn4.setPreferredSize(new Dimension(150, 28));
 
         fr.add(p1);
-//        p7.add(title1);
         p3.add(la1);
         p3.add(txtName);
         p4.add(la2);
@@ -158,13 +154,6 @@ public class WareHouseGUI {
         p9.add(p17);
         p18.add(laCost);
         p18.add(txtCost);
-//        MyTranscoder transcoder = new MyTranscoder();
-//        TranscodingHints hints = new TranscodingHints();
-//        hints.put(ImageTranscoder.KEY_WIDTH, 1200);
-//        hints.put(ImageTranscoder.KEY_HEIGHT, 1200);
-//        transcoder.setTranscodingHints(hints);
-//        transcoder.transcode(new TranscoderInput("pic/warehouse.svg"), null);
-//        BufferedImage image = transcoder.getImage();
 
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("pic/warehouse.png").getImage().getScaledInstance(750, 128, Image.SCALE_DEFAULT));
         JLabel backgroundLabel = new JLabel(imageIcon);
@@ -191,9 +180,6 @@ public class WareHouseGUI {
         p19.setBackground(new Color(47, 47, 47));
         p20.setBackground(new Color(47, 47, 47));
 
-//        JTableHeader Theader = table.getTableHeader();
-//        Theader.setBackground(Color.white);
-        //Add components on the JFrame
         p1.add(p2, BorderLayout.WEST);
         p1.add(p7, BorderLayout.NORTH);
         p1.add(p9, BorderLayout.SOUTH);
@@ -205,11 +191,9 @@ public class WareHouseGUI {
         p19.add(p20, BorderLayout.EAST);
         p1.add(p19, BorderLayout.CENTER);
         table = new JTable();
-//        scrollPane.getViewport().setBackground(new Color(221, 219, 203, 255)); //221,219,203,255
         JTableHeader Theader = table.getTableHeader();
         Theader.setBackground(Color.WHITE);
 
-        //Set Model for Jtable(ProductTableModel)
         tablemodel = new ProductTableModel();
         table.setModel(tablemodel);
         scrollPane.setViewportView(table);

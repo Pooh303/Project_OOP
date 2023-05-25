@@ -75,7 +75,6 @@ public class Camera implements MyWebCam, Runnable, WebCamStatus {
                 BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
                 Reader reader = new MultiFormatReader();
                 result = reader.decode(bitmap);
-//                System.out.println(result.getText());
                 if (checked()) {
                     System.out.println(result.getText());
                     text = result.getText();

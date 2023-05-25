@@ -14,26 +14,22 @@ public class ReportsTableModel extends AbstractTableModel implements Serializabl
         initDatas();
     }
 
-    //กำหนดค่าเริ่มต้นให้กับข้อมูล
     private void initDatas() {
 
     }
 
     @Override
     public String getColumnName(int columnId) {
-        //return ชื่อของแต่ละ column ที่ต้องการแสดงใน table
         return header[columnId];
     }
 
     @Override
     public int getRowCount() {
-        //return จำนวนแถวข้อมูลทั้งหมด
         return soldProducts.size();
     }
 
     @Override
     public int getColumnCount() {
-        //return จำนวนของ column
         return header.length;
     }
 
@@ -43,7 +39,7 @@ public class ReportsTableModel extends AbstractTableModel implements Serializabl
             return null;
         } else {
             SoldProduct s = soldProducts.get(rowIndex);
-            //if you have more field should specify more case here
+            //If you have more fields, you should specify more cases here.
             switch (columnIndex) {
                 case 0:
                     return s.getDate();

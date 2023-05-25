@@ -45,7 +45,7 @@ public class ReportsHandler implements ActionListener, WindowListener, PropertyC
         updateStat();
     }
 
-    //set total price, total cost and total profit on Jtextfield.
+    //Set the total price, total cost, and total profit on a JTextField.
     private void updateStat() {
         double t_price = 0;
         double t_cost = 0;
