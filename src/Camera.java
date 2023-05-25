@@ -85,12 +85,12 @@ public class Camera implements MyWebCam, Runnable, WebCamStatus {
             } catch (IOException ex) {
 
             } catch (NotFoundException ex) {
-                try {
-                    Thread.sleep(1000);
-                    System.out.println("Time's Running " + ++i);
-                } catch (InterruptedException ex1) {
-                    Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex1);
-                }
+//                try {
+//                    Thread.sleep(1000);
+//                    System.out.println("Time's Running " + ++i);
+//                } catch (InterruptedException ex1) {
+//                    Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex1);
+//                }
             } catch (ChecksumException ex) {
 
             } catch (FormatException ex) {

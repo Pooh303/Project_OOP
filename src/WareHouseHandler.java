@@ -184,7 +184,7 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
     private void addData() {
         if (view.gettxtAmount().getText().equals("") || view.gettxtPrice().getText().equals("")
                 || view.gettxtName().getText().equals("") || view.gettxtCode().getText().equals("")) {
-            JOptionPane.showMessageDialog(view.getFr(), "Please Enter All Data!");
+            JOptionPane.showMessageDialog(view.getFr(), "Please enter all data!");
         } else if (view.getTablemodel().checkCode(view.gettxtCode().getText(), view.getTablemodel().products)) {
             JOptionPane.showMessageDialog(view.getFr(), "This Code already exists in the system.");
             view.gettxtName().setText("");
@@ -217,13 +217,13 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
             view.gettxtCode().setText("");
             view.getTxtCost().setText("");
             view.getTablemodel().printArray();
-            System.out.println("out of data");
+            System.out.println("Out of data");
         }
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        saveDataToFileforExit();
+//        saveDataToFileforExit();
     }
 
     @Override
@@ -293,7 +293,17 @@ public class WareHouseHandler extends absWareHouseHandler implements ActionListe
 
     }
 
-    private void saveDataToFile() {
+    public void loadDataFromFile() {
+        if (logs.exists()) {
+            try (FileInputStream stream = new FileInputStream(logs); ObjectInputStream ips = new ObjectInputStream(stream);) {
+                view.getTablemodel().products = (ArrayList<Product>) ips.readObject();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void saveDataToFile() {
         try (FileOutputStream stream = new FileOutputStream(logs); ObjectOutputStream ops = new ObjectOutputStream(stream)) {
             ops.writeObject(view.getTablemodel().products);
         } catch (IOException ex) {

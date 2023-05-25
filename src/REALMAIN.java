@@ -195,9 +195,11 @@ public class REALMAIN extends javax.swing.JFrame {
         JFrame frame = Handler.wareHouseHandler.getFr();
         if (Handler.isOpenWareHouseHandler) {
             frame.setVisible(true);
-            
+
             return;
         }
+        Handler.wareHouseHandler.loadDataFromFile();
+        Handler.wareHouseHandler.saveDataToFile();
         frame.setVisible(true);
         Handler.isOpenSellerhandler = true;
     }//GEN-LAST:event_invMouseClicked
