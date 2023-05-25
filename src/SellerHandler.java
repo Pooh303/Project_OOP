@@ -536,6 +536,7 @@ public class SellerHandler extends Thread implements ActionListener, WindowListe
                 useManual();
             } else {
                 ResetTxtField();
+                Camera.reportStatus(new SonyWebcam(true));
                 view1.getBnScan().setText("⏹ ️Stop");
                 useAuto();
             }

@@ -20,11 +20,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-public class Camera implements MyWebCam, Runnable {
+public class Camera implements MyWebCam, Runnable, WebCamStatus {
 
     private Result result;
     private String text;
     private boolean pause = true;
+    private boolean status;
+    private boolean isConnected;
+
+    public String getStatus() {
+        if (isConnected) {
+            return "Webcam is connected.";
+        } else {
+            return "Webcam is disconnected.";
+        }
+    }
+
+    public static void reportStatus(WebCamStatus webcam) {
+        String status = webcam.getStatus();
+        System.out.println("Webcam status: " + status);
+    }
 
     private synchronized void checkPaused() {
         while (pause) {
